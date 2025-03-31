@@ -1,0 +1,9 @@
+
+https://github.com/maxxir/m1284p_wiz5500
+
+ART
+- taken from the LWM_MSSY project
+- Edited for standart input/output (for printf)
+
+MQTT
+- SPI HW maping (PINs)
