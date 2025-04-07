@@ -1,0 +1,23 @@
+
+https://github.com/maxxir/m1284p_wiz5500
+
+UART
+- taken from the LWM_MSSY project
+- Edited for standart input/output (for printf)
+
+MQTT
+- SPI HW maping (PINs)
+
+PINOUT on EXT2
+W5500                   Board
+SCLK (brown)            PB1
+SCS (green)             PD4
+MOSI (yellow)           PB2
+MISO (orange)           PB3
+INT (grey)              NC
+RST (white)             NC
+
+- structure and includes
+
+
+SPI DOESN'T WORK
