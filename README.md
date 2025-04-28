@@ -14,7 +14,7 @@ Cílem projektu je vytvořit gateway pro protokol **LWM**, která bude obsah (pa
 Implementace v rámci projektu:
 
 - **UART** -> zejména pro pohodlnější debugování
-- **WizNet 5500** -> podpora Ethernetu (MQTT pro MQTT)
+- **WizNet 5500** -> podpora Ethernetu (pro MQTT)
 - **SPI** -> komunikace s w5500 chipem
 - **LWM** stack -> fungování LWM protokolu
 - **MQTT** stack -> fungování MQTT protokolu
