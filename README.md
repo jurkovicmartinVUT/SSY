@@ -30,7 +30,7 @@ Z níže uvedených implementací bylo vycházeno při řešení tohoto projektu
 ## Vlastní implementace
 
 ### Výchozí bod
-Výchozím bodem při řešení byt projekt z 5. laboratorního cvičení s implementovaným **LWM** stackem a funkčním **UARTem**. Funkcionality UARTU bylo využito pro přesměrování standardního výstupu programu = "printf" výpisy jsou odesílány přes UART.
+Výchozím bodem při řešení byl projekt z 5. laboratorního cvičení s implementovaným **LWM** stackem a funkčním **UARTem**. Funkcionality UARTU bylo využito pro přesměrování standardního výstupu programu -> "printf" výpisy jsou odesílány přes UART.
 
 ### WizNet 5500
 Modul WizNet 5500 dovoluje komunikaci s využitím technologie **Ethernet**. Drivery pro tento modul byly převzaty z implementace [MQTT](https://github.com/maxxir/m1284p_wiz5500/tree/master/22_m1284p_WIZNET_MQTT). Využité řešení ovšem bylo vytvořeno pro jinou řadu mikrokontroléru (konkrétně ATMEGA 1284p) a proto bylo nutné provést **úpravy nastavení SPI komunikace** (WizNet komunikuje s mikrokontrolérem přes SPI).
@@ -53,16 +53,16 @@ Implementace MQTT byla převzata ze stejného projektu, jako [WizNet](https://gi
 Řešení pro využití [DHCP](https://github.com/maxxir/m1284p_wiz5500/tree/master/04_m1284p_WIZNET_loopback_DHCP) se nachází ve stejném github repozitáři, jako MQTT implementace = Ethernet (WizNet) byl nakonfigurován shodným způsobem. Do řešení projektu tedy byla importována pouze podpora DHCP.
 
 ### Obecná logika
-Obecnou logiku programu bych popsal následovně.
+Obecnou logiku programu lze popsat následovně.
 
-V první fázi proběhne **základní inicializace**:
+V první fázi proběhne **základní inicializace** zejména:
 - UART
 - LWM
 - Watchdog
 - Časovač
 - A/D převodník
 
-Následuje výpis vybraných vlastností programu. Poté proběhne **inicializace w5500** a **inicializace proměnných** pro další chod programu:
+Následuje výpis vybraných vlastností programu (frekvence procesoru, dostupná paměť, ...). Poté proběhne **inicializace w5500** a **inicializace proměnných** důležitých pro další chod programu:
 - Rozhodnutí použití statické / dynamické síťové konfigurace
 - MQTT
 - Časovače pro jedntlivé části programu
@@ -72,16 +72,16 @@ Nyní se v programu nachází **hlavní smyčka**, ve které se provádí:
 - DHCP konfigurace (s výpisem síťového konfigurace)
 - Spuštění lokální TCP/UDP testovací aplikace
 - MQTT připojení k brokerovi + odeslání subscribe zprávy
-- Pravidelná kontrola času běhu a volné paměti
+- Pravidelný výpis volné paměti a času běhu programu
 
-Při přijmu LWM zprávy je její obsah odeslán na UART (výpis) + je z této zprávy přečtena délka obsahu. Samotný obsah + jeho délka jsou vloženy do MQTT publish zprávy.
+Při přijmu LWM zprávy je její obsah odeslán na UART (výpis) + je z této zprávy přečtena délka obsahu. Samotný obsah + jeho délka jsou vloženy do MQTT publish zprávy a odesláný -> funkce gateway.
 
 ### Hlavní konfigurace
 Hlavní konfigurace probíhá v následujících souborech:
 - config.h -> UART a LWM
 - stack/hal/drivers/atmega256rfr2/inc/spi.h -> SPI
 - globals.h -> trochu od všeho
-- globals.c -> IP (včetně IP MQTT brokera)
+- globals.c -> IP mikrokontroléru (včetně IP MQTT brokera)
 - main.c -> trochu od všeho
 
 *UART + LWM konfigurace*
@@ -158,4 +158,4 @@ return true;
 ```
 
 ### Co si odnáším
-Projekt mi přinest alespoň základní představu o SPI komunikaci a MQTT protokolu, což nebylo náplní standarních cvičení. Jelikož nemám nějaké zásadní zkušenosti s programováním mikrokontrolérů, jsem rád, že jsem si toto programování mohl v rámci výuky vyzkoušet a jak se říká "trochu osahat". Dojmy to ve mně zanechalo takové, že programování mikrokontrolérů s největší pravděpodobností nebude zrovna můj šálek kávy. Debugování takového programu bylo ve většině případů značně nemilé. I přes mou snahu dát projekt dohromady, ho nemůžu označit za 100 % funkční, ale určitě jsem uvítal zkušenost tohoto charakteru.
+Projekt mi přinest alespoň základní představu o SPI komunikaci a MQTT protokolu, což nebylo náplní standarních cvičení. Jelikož nemám zásadní zkušenosti s programováním mikrokontrolérů, jsem rád, že jsem si tuto činnost mohl v rámci výuky vyzkoušet a jak se říká "trochu osahat". Dojmy to ve mně zanechalo takové, že programování mikrokontrolérů s největší pravděpodobností nebude zrovna můj šálek kávy. Debugování takového programu bylo ve většině případů značně nemilé. I přes mou snahu dát projekt dohromady, ho nemůžu označit za 100 % funkční, ale určitě jsem uvítal zkušenost tohoto charakteru.
